@@ -1,4 +1,4 @@
-# ❔ Vea FAQ
+# ❔ FAQ
 
 ## Why the name?
 
