@@ -38,9 +38,11 @@ Vea's design decisions do come with some limitations and may not be suitable to 
 
 ## Is it really safe to skip the 1 week delay of an optimistic rollup?
 
-Once a L2 transaction is written (and heavily compressed) on Ethereum and given enough time for L1 finality ([60 to 95 beacon chain slots](https://notes.ethereum.org/@vbuterin/single\_slot\_finality#Paths-toward-single-slot-finality)), the L2 transaction can be safely considered as final. Therefore it is Vea's oracle role to verify that a) the L2 transaction is indeed included on L1, and b) that enough time has passed before submitting a Merkle proof on Vea's L1 contract. That is part of Vea's client specifications.
+Once a L2 transaction is written (and heavily compressed) on Ethereum and given enough time for L1 finality ([60 to 95 beacon chain slots](https://notes.ethereum.org/@vbuterin/single\_slot\_finality#Paths-toward-single-slot-finality)), the L2 transaction can be safely considered as final. Therefore it is Vea's oracle role to verify that a) the L2 transaction is indeed included on L1, and b) that sufficient time has passed before submitting a Merkle proof on Vea's L1 contract (L1 finality). That is part of Vea's client specifications.
 
-Then why the week-long optimistic rollup mechanism? It is intended for the production of the L2 blocks to be written on L1 by executing a deterministic transition function without relying on a central party. Even if this mechanism was to follow an unhappy path, it must eventually converge to a state where the L2 transaction is included, because it has already been written to L1.
+## Then why the week-long optimistic rollup mechanism?&#x20;
+
+It is intended for the production of the L2 blocks to be written on L1 without relying on a centralized source of truth. This delay gives honest parties enough time to participate in a fraud-proving scheme by staking on the correct state (Arbitrum) or by challenging a state transition (Optimism). Even if this mechanism was to follow an unhappy path, it must eventually converge to a state where the L2 transaction is included, because it has already been written to L1.
 
 The Arbitrum documentation puts it [this way](https://developer.offchainlabs.com/arbos/l2-to-l1-messaging#protocol-design-details):
 
@@ -50,11 +52,23 @@ This is [a good explainer](https://developer.offchainlabs.com/inside-arbitrum-ni
 
 ![](https://i.imgur.com/YPF5VLt.png)
 
+We believe that the 1 week delay is extremely conservative and is designed around a threat model where an attacker might be trying to steal everything of value on a rollup by issuing a single malicious state update and then censuring the honest parties. With different Vea deployments, we can calibrate the challenge period to better reflect the security needed by individual applications that are using it - for most applications the challenge periods in Vea will be adequately secure.
+
 ## Is there any other risk involved in bridging from an optimistic rollup?
 
-Yes, in the extreme case where a malicious sequencer would attempt to censor a L2 transaction by not including it on L1. As explained in the previous question, a Vea oracle _must_ wait for the corresponding transaction to be written on L1 before submitting a proof, otherwise the proof must be challenged.
+Yes, in the extreme cases where a malicious sequencer would attempt to censor a L2 transaction by not including it on L1, or a L1 block producer would attempt not to include a transaction from the mempool.
 
-Arbitrum provides a mechanism allowing anyone to forcibly include a valid L2 transaction on L1 by submitting it to its delayed inbox contract. A malicious sequencer can [only delay a transaction by 24 hours but not censor it](https://developer.offchainlabs.com/inside-arbitrum-nitro/#inboxes-fast-and-slow). Eventually a Vea oracle will detect that the L2 transaction has indeed been written to L1 and will submit the corresponding proof.
+### L2 censorship of the happy path
+
+This is when the L2 batch message is censored on L2. As explained in the previous questions, a Vea oracle _must_ wait for this transaction to be written on L1 before submitting a proof, otherwise the proof must be challenged.
+
+### L2 censorship of the unhappy path
+
+This is when the fallback to the canonical bridge is censored. Arbitrum provides a mechanism allowing anyone to forcibly include a valid L2 transaction on L1 by submitting it to its delayed inbox contract. A malicious sequencer can [only delay a transaction by 24 hours but not censor it](https://developer.offchainlabs.com/inside-arbitrum-nitro/#inboxes-fast-and-slow). Eventually a Vea oracle will detect that the L2 transaction has indeed been written to L1 and will submit the corresponding proof.
+
+### L1 censorship of the Oracle or the Challenger
+
+Censorship resistance is guaranteed by the L1 blockchain protocol directly, which is Ethereum for Vea in all cases so far. For Ethereum, it is generally accepted that a transaction cannot be practically censored but only delayed by a reasonably small number of blocks. If this assumption breaks, the Ethereum community can resort to [social slashings](https://ethereum.org/en/developers/docs/consensus-mechanisms/pos/faqs/#what-is-social-slashing) against the attacker.
 
 ## What about ZK bridges?
 
