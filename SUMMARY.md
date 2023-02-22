@@ -1,4 +1,4 @@
 # Table of contents
 
-* [🌉 Vea](README.md)
+* [✔ Vea](README.md)
 * [❔ FAQ](faq.md)
