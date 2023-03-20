@@ -4,10 +4,6 @@
 
 Vea is latin for a way, a road, a passage. :bridge\_at\_night: We think it's fitting for a cross-chain interoperability solution.
 
-## Is it any good?
-
-Yes.
-
 ## Why another bridge?
 
 We are building a lean solution specialized for message bridging with minimum sacrifice on security. This approach differs from most solutions designed for token bridges and relying on complex routing middleware.
