@@ -3,7 +3,7 @@
 ## 🌉 Introduction
 
 * [✔ Vea](README.md)
-* [❔ FAQ](introduction/faq.md)
+* [❔ FAQ](faq.md)
 
 ## 🛠 Build Xchain dApps
 
