@@ -36,7 +36,7 @@ This delay will not call into question the L2 transaction, it is intended for th
 
 ### Security
 
-Vea as a specialized bridge differs from the existing alternatives by taking a more conservative stance on security. It involves no routing middleware, no Chainlink oracle, no contract administrator role, no governance multisig, no upgradability. The smart contracts are disowned and immutable.
+Vea as a specialized bridge differs from the existing alternatives by taking a more conservative stance on security. It involves no routing middleware, no third party oracle, no contract administrator or owner role, no governance multisig, no upgradability.
 
 ## Learning more about Vea
 
