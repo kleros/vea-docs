@@ -26,11 +26,11 @@ While in the unhappy case, it is no different than using the canonical bridges o
 
 There is no need for any additional trust assumption on say a Chainlink oracle or some slow governance mechanism or trusted DAO multisig to ensure that the message is relayed correctly.
 
-As long as there is one honest participant runing a working implementation of the light client specifications at any time, and anybody can take on this role.
+As long as there is one honest participant running a working implementation of the light client specifications at any time, and anybody can take on this role.
 
 ## Is there any limitation? What's the trick?
 
-Vea's design decisions do come with some limitations and may not be suitable to every use cases. Firstly the focus is on message passing primarily (as opposed to tokens). And secondly the use case must tolerate the worst case latency when a slow bridge is involved (egress messages from optimistic rollups typically) which is 7 days, plus potentially 1 extra day for forced-inclusion in the most extreme case.
+Vea's design decisions do come with some limitations and may not be suitable for every use case. Firstly the focus is on message passing primarily (as opposed to tokens). And secondly the use case must tolerate the worst case latency when a slow bridge is involved (egress messages from optimistic rollups typically) which is 7 days, plus potentially 1 extra day for forced-inclusion in the most extreme case.
 
 ## Is it really safe to skip the 1 week delay of an optimistic rollup?
 
@@ -44,7 +44,7 @@ The Arbitrum documentation puts it [this way](https://developer.offchainlabs.com
 
 > The moment a transaction is published on-chain, any observer can anticipate its result; however, for Ethereum itself to accept its result, the protocol must give time for Arbitrum validators to detect and prove fault if need-be.
 
-This is [a good explainer](https://developer.offchainlabs.com/inside-arbitrum-nitro/#sequencing-followed-by-deterministic-execution) on what happens during the 1-week delay for the Arbitrum rollup.
+This is [a good explainer](https://developer.offchainlabs.com/inside-arbitrum-nitro/#sequencing-followed-by-deterministic-execution) of what happens during the 1-week delay for the Arbitrum rollup.
 
 ![](https://i.imgur.com/YPF5VLt.png)
 
@@ -90,11 +90,11 @@ The [Kleros Cooperative](https://kleros.io/coop), steward of the [Kleros arbitra
 
 The original idea for Vea has been conceived in early 2021 as an internal solution for Kleros and mentioned in the [Kleros Yellow Paper (page 6, section 4.2)](https://kleros.io/yellowpaper.pdf) by Clément Lesaege, William George, and Federico Ast.
 
-During development it emerged that the bridge could easily be application-agnostic and used by other projects without much extra effort. The absence of both priviledged functions and reliance on centralized party has definitely made this easier.
+During development it emerged that the bridge could easily be application-agnostic and used by other projects without much extra effort. The absence of both privileged functions and reliance on centralized party has definitely made this easier.
 
 ## How does Vea make money?
 
-Neither Vea as a protocol or an organization makes money in its current form. Vea is deployed as a public good for anyone to use, and for no one to own. Meawhile we can gauge Vea's performance and utility when the rubber hits the ground.
+Neither Vea as a protocol or an organization makes money in its current form. Vea is deployed as a public good for anyone to use, and for no one to own. Meanwhile we can gauge Vea's performance and utility when the rubber hits the ground.
 
 A future version of the Vea protocol may bake in more sustainable incentives, more rewarding for protocol participants (those acting as oracle, challenger, relayer).
 
