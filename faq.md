@@ -34,11 +34,11 @@ Vea's design decisions do come with some limitations and may not be suitable to 
 
 ## Is it really safe to skip the 1 week delay of an optimistic rollup?
 
-Once a L2 transaction is written (and heavily compressed) on Ethereum and given enough time for L1 finality ([60 to 95 beacon chain slots](https://notes.ethereum.org/@vbuterin/single\_slot\_finality#Paths-toward-single-slot-finality)), the L2 transaction can be safely considered as final. Therefore it is Vea's oracle role to verify that a) the L2 transaction is indeed included on L1, and b) that sufficient time has passed before submitting a Merkle proof on Vea's L1 contract (L1 finality). That is part of Vea's client specifications.
+Once a L2 transaction is written (and heavily compressed) on Ethereum and given enough time for L1 finality ([64 to 95 slots](https://notes.ethereum.org/@vbuterin/single_slot_finality)), the L2 transaction can be safely considered as final. Therefore it is Vea's oracle role to verify that a) the L2 transaction is indeed included on L1, and b) that sufficient time has passed before submitting a Merkle proof on Vea's L1 contract (L1 finality). That is part of Vea's client specifications.
 
 ## Then why the week-long optimistic rollup mechanism?&#x20;
 
-It is intended for the production of the L2 blocks to be written on L1 without relying on a centralized source of truth. This delay gives honest parties enough time to participate in a fraud-proving scheme by staking on the correct state (Arbitrum) or by challenging a state transition (Optimism). Even if this mechanism was to follow an unhappy path, it must eventually converge to a state where the L2 transaction is included, because it has already been written to L1.
+It is intended for the production of the L2 blocks to be written on L1 without relying on a centralized source of truth. This delay gives honest parties enough time to participate in a fraud-proving scheme by staking on the correct state or by challenging a state transition. Even if this mechanism was to follow an unhappy path, it must eventually converge to a state where the L2 transaction is included, because it has already been written to L1.
 
 The Arbitrum documentation puts it [this way](https://developer.offchainlabs.com/arbos/l2-to-l1-messaging#protocol-design-details):
 
