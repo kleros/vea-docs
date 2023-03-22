@@ -30,7 +30,7 @@ The message is sent over the canonical bridge which takes 7 days (or 8 days in t
 
 ### Protocol Design
 
-Leading to this design is the key realisation that once a L2 transaction is written on L1 (and heavily compressed) on Ethereum and given enough time for L1 finality ([60 to 95 beacon chain slots](https://notes.ethereum.org/@vbuterin/single\_slot\_finality#Paths-toward-single-slot-finality)), the L2 transaction can be safely considered as final, and therefore it can bridged without waiting for 7 days.&#x20;
+Leading to this design is the key realisation that once a L2 transaction is written on L1 (and heavily compressed) on Ethereum and given enough time for L1 finality ([64 to 95 slots](https://notes.ethereum.org/@vbuterin/single_slot_finality)), the L2 transaction can be safely considered as final, and therefore it can bridged without waiting for 7 days.&#x20;
 
 This delay will not call into question the L2 transaction, it is intended for the production of the L2 blocks with the state state to be written on L1 without relying on a centralized source of truth, thereby giving honest parties enough time to participate in the 7-days fraud-proving scheme by staking on the correct state (Arbitrum) or by challenging a state transition (Optimism).&#x20;
 
