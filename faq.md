@@ -16,15 +16,15 @@ If existing bridges are battle tested, they may as have lost the battle: Nomad, 
 
 ## What type of bridge is this?
 
-A trust-minimized optimistically-verified bridge, open to any participant bonded to fulfill the roles of Oracle, Challenger or Relayer. The trust model requires only 1 live honest verifier, similarly to optimistic rollups.
+A trust-minimized optimistically-verified bridge, open to any participant to fulfill the roles of Oracle, Challenger or Relayer. The trust model requires only 1 live honest verifier, similar to optimistic rollups.
 
 ## How is this secure?
 
-As an optimistic bridge, it is cheap and fast to use in the happy case, where an Oracle makes a claim and no Challenger challenges.
+As an optimistic bridge, it is cheap and fast to use in the happy case, where an Oracle makes an unchallenged claim.
 
 While in the unhappy case, it is no different than using the canonical bridges operated by a particular rollup or side-chain.
 
-There is no need for any additional trust assumption on say a Chainlink oracle or some slow governance mechanism or trusted DAO multisig to ensure that the message is relayed correctly.
+There is no need for any additional trust assumption on say a 3rd-party oracle or some slow governance mechanism or trusted DAO multisig to ensure that the message is relayed correctly.
 
 As long as there is one honest participant running a working implementation of the light client specifications at any time, and anybody can take on this role.
 
@@ -34,9 +34,9 @@ Vea's design decisions do come with some limitations and may not be suitable for
 
 ## Is it really safe to skip the 1 week delay of an optimistic rollup?
 
-Once a L2 transaction is written (and heavily compressed) on Ethereum and given enough time for L1 finality ([64 to 95 slots](https://notes.ethereum.org/@vbuterin/single_slot_finality)), the L2 transaction can be safely considered as final. Therefore it is Vea's oracle role to verify that a) the L2 transaction is indeed included on L1, and b) that sufficient time has passed before submitting a Merkle proof on Vea's L1 contract (L1 finality). That is part of Vea's client specifications.
+Once a L2 transaction is written (and heavily compressed) on Ethereum and given enough time for L1 finality ([64 to 95 slots](https://notes.ethereum.org/@vbuterin/single\_slot\_finality)), the L2 transaction can be safely considered as final. Therefore it is Vea's oracle role to verify that a) the L2 transaction is indeed included on L1, and b) that sufficient time has passed before submitting a Merkle proof on Vea's L1 contract (L1 finality). That is part of Vea's client specifications.
 
-## Then why the week-long optimistic rollup mechanism?&#x20;
+## Then why the week-long optimistic rollup mechanism?
 
 It is intended for the production of the L2 blocks to be written on L1 without relying on a centralized source of truth. This delay gives honest parties enough time to participate in a fraud-proving scheme by staking on the correct state or by challenging a state transition. Even if this mechanism was to follow an unhappy path, it must eventually converge to a state where the L2 transaction is included, because it has already been written to L1.
 
@@ -49,6 +49,10 @@ This is [a good explainer](https://developer.offchainlabs.com/inside-arbitrum-ni
 ![](https://i.imgur.com/YPF5VLt.png)
 
 We believe that the 1 week delay is extremely conservative and is designed around a threat model where an attacker might be trying to steal everything of value on a rollup by issuing a single malicious state update and then censuring the honest parties. With different Vea deployments, we can calibrate the challenge period to better reflect the security needed by individual applications that are using it - for most applications the challenge periods in Vea will be adequately secure.
+
+Vea also implements new mechanisms proposed by the chief scientist of Offchain Labs, the builders of Arbitrum, to securely reduce the bridging time in rollups. For further details, see the technical deep dive section.
+
+<figure><img src=".gitbook/assets/image.png" alt=""><figcaption><p><a href="https://ethresear.ch/t/reducing-challenge-times-in-rollups/14997">https://ethresear.ch/t/reducing-challenge-times-in-rollups/14997</a></p></figcaption></figure>
 
 ## Is there any other risk involved in bridging from an optimistic rollup?
 
@@ -133,4 +137,3 @@ Vea is still under development, an audit may come later.
 ## Has the protocol been formally verified?
 
 Touché, it has not. If you would like to contribute on this front, please reach out to us!
-

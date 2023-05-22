@@ -1,9 +1,10 @@
 # Table of contents
 
-## 🌉 Introduction
+## Introduction
 
-* [✔ Vea](README.md)
+* [🌉 Vea](README.md)
 * [❔ FAQ](faq.md)
+* [🧠 Technical Deep Dive](introduction/technical-deep-dive.md)
 
 ## 🛠 Build Xchain dApps
 
