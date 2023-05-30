@@ -1,7 +1,9 @@
 ---
-description: Coming soon! 🚧
+description: >-
+  Validator Tooling is under development and will be ready for the testnet
+  launch. 🚧
 ---
 
 # Getting Started
 
-![](<../.gitbook/assets/image (3).png>)
+<figure><img src="../.gitbook/assets/image (68).png" alt=""><figcaption></figcaption></figure>
