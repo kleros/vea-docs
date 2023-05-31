@@ -232,7 +232,7 @@ Once messages are bridged by Vea, which can take hours to days depending on the 
 
 The [Vea SDK](vea-sdk.md) provides utility functions to calculate merkle inclusion proofs given the msgId. Here is an example of relaying a message given the msgId.
 
-```
+```typescript
 import { Wallet } from "@ethersproject/wallet";
 import VeaSdk from "../src/index";
 
